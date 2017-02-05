@@ -1,0 +1,39 @@
+/*Размеры колонок и ввода текста*/
+.td_icon { width: 32px;}
+
+.td_project {width: 70px;}
+input#project {width:80%;
+}
+
+.td_name { width: 130px;}
+input#name {width:80%;
+}
+
+.td_revision { width: 50px;}
+input#revision {width:60%;
+}
+
+.td_part { width: 50px;}
+input#part {width:60%;
+}
+
+.td_status { width: 50px;}
+input#status {width:60%;
+}
+
+input#title {width:95%;
+}
+
+.td_date  { width: 90px;}
+input#date_beg, input#date_end {
+    width: 80%;
+}
+
+.td_transmittal { width: 170px;}
+input#transmittal {
+    width:90%;
+}
+
+/*Выравнивание в ячейках*/
+th,td {text-align: center;}
+td.td_title { text-align: left;}
