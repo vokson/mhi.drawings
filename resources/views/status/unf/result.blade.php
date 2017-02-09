@@ -3,6 +3,7 @@ Count of documents {{ count($docs) }} </br>
     Please, manage SEARCH conditions !!!
 @else
 
+
     <table id="docTable" class="tablesorter">
         <thead>
         <tr>
@@ -10,10 +11,11 @@ Count of documents {{ count($docs) }} </br>
             <th class="td_name">Drawing</th>
             <th class="td_revision">Rev</th>
             <th class="td_part">Part</th>
-            <th class="td_DI_approval">DI approval</th>
-            <th class="td_DI_letter">DI letter</th>
-            <th class="td_SAC_approval">SAC approval</th>
-            <th class="td_SAC_letter">SAC letter</th>
+            <th class="td_title">Title</th>
+            <th class="td_approval">DI-A</th>
+            <th class="td_letter">DI-L</th>
+            <th class="td_approval">SAC-A</th>
+            <th class="td_letter">SAC-L</th>
         </tr>
         </thead>
 
@@ -35,10 +37,27 @@ Count of documents {{ count($docs) }} </br>
 
                 <td class="td_revision">{{ $doc->revision }}</td>
                 <td class="td_part">{{ $doc->part }}</td>
-                <td class="td_DI_approval">{{ $doc->approvedByDI }}</td>
-                <td class="td_DI_letter">{{ $doc->letterFromDI }}</td>
-                <td class="td_SAC_approval">{{ $doc->approvedBySAC }}</td>
-                <td class="td_SAC_letter">{{ $doc->letterFromSAC }}</td>
+                <td class="td_title">{{ $doc->title }}</td>
+
+                <td class="td_approval">
+                    @if ($doc->approvedByDI)
+                        YES
+                    @else
+                        NO
+                    @endif
+                </td>
+
+                <td class="td_letter">{{ $doc->letterFromDI }}</td>
+
+                <td class="td_approval">
+                    @if ($doc->approvedBySAC)
+                        YES
+                    @else
+                        NO
+                    @endif
+                </td>
+
+                <td class="td_letter">{{ $doc->letterFromSAC }}</td>
 
             </tr>
         @endforeach

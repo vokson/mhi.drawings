@@ -33,9 +33,8 @@ class ServiceController extends Controller
             ->get()->toArray();
 
         foreach ($rows as $row) {
-            DB::table('max_rev_table')->insert((array) $row);
+            DB::table('max_rev_table')->insert((array)$row);
         }
-
 
 
         echo count($rows) . " maximum revisions have been chosen.";
@@ -55,6 +54,7 @@ class ServiceController extends Controller
             $object->id = $doc->id;
             $object->project = $doc->project;
             $object->name = $doc->name;
+            $object->title = $doc->title;
             $object->revision = $doc->revision;
             $object->part = $doc->part;
             $object->path = $doc->path;
@@ -65,16 +65,42 @@ class ServiceController extends Controller
         $statuses = StatusUNF::all();
 
         $pdfNameCreator = new PdfCommentDocumentNameCreator();
-//        $jsonNameCreator = new JsonDocumentNameCreator();
+        $jsonNameCreator = new JsonDocumentNameCreator();
 
         foreach ($statuses as $status) {
+
+//            echo $pdfNameCreator->name($status) . "<br/>";
 
             if (file_exists($pdfNameCreator->name($status))) {
                 $status->isPdfExist = true;
             }
 
-//            if (file_exists($jsonNameCreator->name($status))) {
-//            }
+            $jsonPath = $jsonNameCreator->name($status);
+
+            if (file_exists($jsonPath)) {
+                if ($jsonArray = json_decode(file_get_contents($jsonPath), true)) {
+
+                    $info = $this->getJsonInfoForUNF($jsonArray);
+
+                    if (is_null($info)) {
+                        echo $jsonPath . " - JSON format is WRONG<br/>";
+
+                    } else {
+                        $status->approvedByDI = $info[0];
+                        $status->letterFromDI = $info[1];
+                        $status->approvedBySAC = $info[2];
+                        $status->letterFromSAC = $info[3];
+                    }
+
+                } else {
+                    echo $jsonPath . " - JSON can't be decoded<br/>";
+                }
+            } else {
+                $status->approvedByDI = false;
+                $status->letterFromDI = null;
+                $status->approvedBySAC = false;
+                $status->letterFromSAC = null;
+            }
 
             $status->save();
         }
@@ -82,23 +108,63 @@ class ServiceController extends Controller
         echo count($statuses) . " statuses have been updated.";
     }
 
+    private function getJsonInfoForUNF($jsonArray)
+    {
+        $isOK = true;
 
-    public function existInfoUpdateForTAF()
+        $approvedByDI = false;
+        if (isset($jsonArray['DI']['approved'])) {
+            if ($jsonArray['DI']['approved'] == "yes" or $jsonArray['DI']['approved'] == "YES") {
+                $approvedByDI = true;
+            }
+        } else $isOK = false;
+
+        $approvedBySAC = false;
+        if (isset($jsonArray['SAC']['approved'])) {
+            if ($jsonArray['SAC']['approved'] == "yes" or $jsonArray['SAC']['approved'] == "YES") {
+                $approvedBySAC = true;
+            }
+        } else $isOK = false;
+
+        $letterFromDI = "";
+        if (isset($jsonArray['DI']['letter'])) {
+            $letterFromDI = $jsonArray['DI']['letter'];
+        } else $isOK = false;
+
+        $letterFromSAC = "";
+        if (isset($jsonArray['SAC']['letter'])) {
+            $letterFromSAC = $jsonArray['SAC']['letter'];
+        } else $isOK = false;
+
+        if ($isOK === true) {
+            return [$approvedByDI, $letterFromDI, $approvedBySAC, $letterFromSAC];
+        } else {
+            return NULL;
+        }
+
+    }
+
+
+    public
+    function existInfoUpdateForTAF()
     {
         $this->existInfoUpdate('6417');
     }
 
-    public function existInfoUpdateForRPA()
+    public
+    function existInfoUpdateForRPA()
     {
         $this->existInfoUpdate('6453');
     }
 
-    public function existInfoUpdateForUNF()
+    public
+    function existInfoUpdateForUNF()
     {
         $this->existInfoUpdate('6464');
     }
 
-    private function existInfoUpdate($project)
+    private
+    function existInfoUpdate($project)
     {
         set_time_limit(300);
 
@@ -123,7 +189,8 @@ class ServiceController extends Controller
         echo count($docs) . " documents have been updates.";
     }
 
-    public function rpa()
+    public
+    function rpa()
     {
         set_time_limit(300);
 
@@ -153,7 +220,8 @@ class ServiceController extends Controller
         echo count($docs) . " documents have been added.";
     }
 
-    public function taf()
+    public
+    function taf()
     {
         set_time_limit(300);
 

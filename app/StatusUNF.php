@@ -15,7 +15,7 @@ class StatusUNF extends Model
         'name',
         'revision',
         'part',
-        'status',
+        'title',
         'path',
         'isPdfExist',
         'approvedByDI',

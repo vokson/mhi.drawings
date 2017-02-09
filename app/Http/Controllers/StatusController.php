@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Utils\DocumentNameCreator;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Utils\PdfCommentDocumentNameCreator;
 
-use App\Utils\WhereQueryCreator;
+use App\Utils\QueryCreator\StatusUNFWhereQueryCreator;
 use Illuminate\Support\Facades\DB;
+use App\Document;
 
 class StatusController extends Controller
 {
@@ -22,14 +22,12 @@ class StatusController extends Controller
     public function search_UNF(Request $request)
     {
         {
-//        dd($request);
-
-            $queryCreator = new WhereQueryCreator();
+            $queryCreator = new StatusUNFWhereQueryCreator();
 
             if ($request->input('only_last_rev') == 1) {
                 $docs = DB::table('unf_status')
                     ->join('max_rev_table', function ($join) {
-                        $join->on('6464', '=', 'max_rev_table.project');
+                        $join->on('unf_status.project', '=', 'max_rev_table.project');
                         $join->on('unf_status.name', '=', 'max_rev_table.name');
                         $join->on('unf_status.revision', '=', 'max_rev_table.revision');
                     })
@@ -41,6 +39,7 @@ class StatusController extends Controller
                     ->get();
             }
 
+//            dd($docs);
 
             return view('status.unf.result', compact('docs'));
         }
@@ -59,7 +58,7 @@ class StatusController extends Controller
 
     private function getDocumentById($id)
     {
-        return DocumentController::where('id', $id)->firstOrFail();
+        return Document::where('id', $id)->firstOrFail();
     }
 
 }

@@ -10,6 +10,8 @@
     <script type="text/javascript" src="/js/status/unf/unf_status.js"></script>
 @stop
 
+
+
 @section('search_form')
     @include('status.unf.form')
 @stop

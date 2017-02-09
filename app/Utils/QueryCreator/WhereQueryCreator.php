@@ -1,23 +1,12 @@
 <?php
 
-namespace App\Utils;
+namespace App\Utils\QueryCreator;
 
 use Illuminate\Http\Request;
 
 
 class WhereQueryCreator
 {
-    private $columns = [
-        ['project', 'like'],
-        ['name', 'like'],
-        ['revision', '='],
-        ['part', '='],
-        ['status', 'like'],
-        ['title', 'like'],
-        ['date_beg', '>=', 'issued_at'],
-        ['date_end', '<=', 'issued_at'],
-        ['transmittal', 'like'],
-    ];
 
     public function make(Request $request)
     {
@@ -41,7 +30,7 @@ class WhereQueryCreator
                         $value = '%' . $value . '%';
                     }
 
-                    $query[] = ['documents.' . $nameInDatabase, $operator, $value];
+                    $query[] = [$this->nameOfTable . '.' . $nameInDatabase, $operator, $value];
                 }
             }
         }

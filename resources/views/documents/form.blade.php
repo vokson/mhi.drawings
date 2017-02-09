@@ -11,8 +11,18 @@
                        id="button_download_all_pdf" value="DOWNLOAD ALL FOUND PDF"
                        title="Download all founded documents in PDF format. In case there are many documents the action may take several minutes."/>
             </td>
+            <td class="td_button_service">
+                <input type="button" class="button_style"
+                       id="button_service" value="SERVICE"
+                       title="Service procedures."/>
+            </td>
             <td class="td_button">
                 {!! Form::submit('SEARCH', ['class' => 'button_style' ]) !!}
+            </td>
+            <td class="td_button_status">
+                <input type="button" class="button_style"
+                       id="button_unf_status" value="UNF"
+                       title="Status of drawings."/>
             </td>
             <td class="td_button_download_all_dwg">
                 <input type="button" class="button_style"

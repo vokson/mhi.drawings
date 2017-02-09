@@ -8,6 +8,6 @@ class PdfCommentDocumentNameCreator extends DocumentNameCreator
 {
     public function name($doc)
     {
-        return $this->createPathByDocAndExtension($doc, '.comment.pdf');
+        return $this->createPathByDocAndExtension($doc, 'comment.pdf');
     }
 }

@@ -2,9 +2,6 @@
 
 namespace App\Utils;
 
-use App\Document;
-
-
 abstract class DocumentNameCreator
 {
     protected function createPathByDocAndExtension($doc, $extension)

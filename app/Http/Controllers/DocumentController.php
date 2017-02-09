@@ -12,8 +12,8 @@ use DB;
 
 use App\Utils\PdfDocumentNameCreator;
 use App\Utils\DwgDocumentNameCreator;
-use App\Utils\WhereQueryCreator;
 use App\Utils\ArchiveStorage;
+use App\Utils\QueryCreator\DocumentWhereQueryCreator;
 
 class DocumentController extends Controller
 {
@@ -26,9 +26,7 @@ class DocumentController extends Controller
     public function search(Request $request)
 
     {
-//        dd($request);
-
-        $queryCreator = new WhereQueryCreator();
+        $queryCreator = new DocumentWhereQueryCreator();
 
         if ($request->input('only_last_rev') == 1) {
             $docs = DB::table('documents')

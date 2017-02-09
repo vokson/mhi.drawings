@@ -6,19 +6,19 @@
     <table class="table_input_button">
         <tr>
             <td class="td_button">
-                {!! Form::submit('SEARCH', ['class' => 'button_style' ]) !!}
+                {!! Form::submit('UNF PROJECT - DRAWING STATUS', ['class' => 'button_style' ]) !!}
             </td>
         </tr>
     </table>
 
     <table class="table_input_text">
         <tr>
+            <td class="td_project"></td>
             <td class="td_name">
                 {!! Form::text('name', null,
                     [
                        'id' => 'name',
                        'placeholder' => "Drawing",
-                       'title' => "Number of drawing or part of number. For example, 'C320-01010'."
                     ]
                 ) !!}
             </td>
@@ -27,7 +27,6 @@
                     [
                        'id' => 'revision',
                        'placeholder' => "Rev",
-                       'title' => "Number of revision. For example, 0,1,2,3..."
                     ]
                 ) !!}
 
@@ -35,6 +34,47 @@
                     [
                         'id' => 'only_last_rev',
                         'title' => "Only last revisions"
+                    ]
+                ) !!}
+            </td>
+            <td class="td_part"></td>
+            <td>
+                {!! Form::text('title',  null,
+                    [
+                        'id' => 'title',
+                        'placeholder' => "Title",
+                    ]
+                ) !!}
+            </td>
+            <td class="td_approval">
+                {!! Form::text('approvedByDI',  null,
+                    [
+                       'id' => 'approvedByDI',
+                       'placeholder' => "DI-A",
+                    ]
+                ) !!}
+            </td>
+            <td class="td_letter">
+                {!! Form::text('letterFromDI',  null,
+                    [
+                       'id' => 'letterFromDI',
+                       'placeholder' => "DI-L",
+                    ]
+                ) !!}
+            </td>
+            <td class="td_approval">
+                {!! Form::text('approvedBySAC',  null,
+                    [
+                       'id' => 'approvedBySAC',
+                       'placeholder' => "SAC-A",
+                    ]
+                ) !!}
+            </td>
+            <td class="td_letter">
+                {!! Form::text('letterFromSAC',  null,
+                    [
+                       'id' => 'letterFromSAC',
+                       'placeholder' => "SAC-L",
                     ]
                 ) !!}
             </td>
