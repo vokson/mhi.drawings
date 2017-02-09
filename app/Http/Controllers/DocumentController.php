@@ -53,7 +53,7 @@ class DocumentController extends Controller
     public function getSinglePdf($id)
     {
         $docNameCreator = new PdfDocumentNameCreator();
-        $path = $docNameCreator->name($this->getDocumentById($id));
+        $path = $docNameCreator->name(self::getDocumentById($id));
 
         return response()
             ->make(file_get_contents($path), 200)
@@ -64,12 +64,12 @@ class DocumentController extends Controller
     public function getSingleDwg($id)
     {
         $docNameCreator = new DwgDocumentNameCreator();
-        $path = $docNameCreator->name($this->getDocumentById($id));
+        $path = $docNameCreator->name(self::getDocumentById($id));
 
         return response()->download($path, basename($path), ['Content-Type: application/octet-stream']);
     }
 
-    private function getDocumentById($id)
+    public static function getDocumentById($id)
     {
         return Document::where('id', $id)->firstOrFail();
     }
@@ -97,7 +97,7 @@ class DocumentController extends Controller
         $files = [];
 
         foreach ($idList as $id) {
-            $doc = $this->getDocumentById($id);
+            $doc = self::getDocumentById($id);
 
             $files[] = $nameCreator->name($doc);
         }

@@ -7,12 +7,12 @@ use App\Http\Controllers\DocumentController;
 
 use App\Http\Requests;
 use App\Document;
+use App\StatusUNF;
 use Form;
 use DB;
-use PDO;
 
-use App\Utils\PdfDocumentNameCreator;
-use App\Utils\DwgDocumentNameCreator;
+use App\Utils\PdfCommentDocumentNameCreator;
+use App\Utils\JsonDocumentNameCreator;
 
 class ServiceController extends Controller
 {
@@ -39,6 +39,47 @@ class ServiceController extends Controller
 
 
         echo count($rows) . " maximum revisions have been chosen.";
+    }
+
+
+    public function statusInfoUpdateForUNF()
+    {
+        set_time_limit(300);
+
+        DB::table('unf_status')->truncate();
+        $docs = Document::where('project', '6464')->get();
+
+        foreach ($docs as $doc) {
+
+            $object = new StatusUNF();
+            $object->id = $doc->id;
+            $object->project = $doc->project;
+            $object->name = $doc->name;
+            $object->revision = $doc->revision;
+            $object->part = $doc->part;
+            $object->path = $doc->path;
+            $object->save();
+
+        }
+
+        $statuses = StatusUNF::all();
+
+        $pdfNameCreator = new PdfCommentDocumentNameCreator();
+//        $jsonNameCreator = new JsonDocumentNameCreator();
+
+        foreach ($statuses as $status) {
+
+            if (file_exists($pdfNameCreator->name($status))) {
+                $status->isPdfExist = true;
+            }
+
+//            if (file_exists($jsonNameCreator->name($status))) {
+//            }
+
+            $status->save();
+        }
+
+        echo count($statuses) . " statuses have been updated.";
     }
 
 

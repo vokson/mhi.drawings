@@ -1,0 +1,75 @@
+table {
+    border-collapse: collapse; 
+    table-layout: fixed;
+    width: 100%; }
+
+
+/*Размеры кнопок*/
+.td_button_get {width:3%;}
+.td_button_download_all_pdf,
+.td_button_download_all_dwg {width:20%;}
+
+/*Внешний вид кнопок*/
+.button_style {
+    -webkit-box-shadow:rgba(0,0,0,0.2) 0 1px 0 0;
+    -moz-box-shadow:rgba(0,0,0,0.2) 0 1px 0 0;
+    box-shadow:rgba(0,0,0,0.2) 0 1px 0 0;
+    border-bottom-color:#333;
+    border:1px solid #61c4ea;
+    background-color:#7cceee;
+    border-radius:5px;
+    -moz-border-radius:5px;
+    -webkit-border-radius:5px;
+    color:#333;
+    font-family:'Verdana',Arial,sans-serif;
+    font-size:14px;
+    text-shadow:#b2e2f5 0 1px 0;
+    padding:5px;
+    width: 100%;
+}
+
+table.table_input_text td {
+    padding:1px 2px 2px 1px;
+    padding:1px 2px 2px 1px;   
+    vertical-align: top;
+}
+
+/*Размеры колонок и ввода текста*/
+.td_icon { width: 32px;}
+
+.td_project {width: 70px;}
+input#project {width:80%;
+}
+
+.td_name { width: 130px;}
+input#name {width:80%;
+}
+
+.td_revision { width: 50px;}
+input#revision {width:60%;
+}
+
+.td_part { width: 50px;}
+input#part {width:60%;
+}
+
+.td_status { width: 50px;}
+input#status {width:60%;
+}
+
+input#title {width:95%;
+}
+
+.td_date  { width: 160px;}
+input#date_beg, input#date_end {
+    width: 80%;
+}
+
+.td_transmittal { width: 170px;}
+input#transmittal {
+    width:90%;
+}
+
+/*Выравнивание в ячейках*/
+th,td {text-align: center;}
+td.td_title { text-align: left;}

@@ -6,7 +6,7 @@ use App\Document;
 
 class DwgDocumentNameCreator extends DocumentNameCreator
 {
-    public function name(Document $doc)
+    public function name($doc)
     {
         return $this->createPathByDocAndExtension($doc, 'dwg');
     }

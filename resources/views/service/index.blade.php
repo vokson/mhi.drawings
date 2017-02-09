@@ -18,6 +18,8 @@
     <h3> <a href="{!! action('ServiceController@existInfoUpdateForUNF') !!}">UNF - update info about existing files</a></h3>
     <br/>
     <h3> <a href="{!! action('DatabaseController@index') !!}">Upload Information into Database</a></h3>
+    <br/>
+    <h3> <a href="{!! action('ServiceController@statusInfoUpdateForUNF') !!}">UNF - update info about comments</a></h3>
 
 </div>
 
