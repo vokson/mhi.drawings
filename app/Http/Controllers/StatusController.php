@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use App\Utils\PdfCommentDocumentNameCreator;
+use App\Utils\NameCreator\PdfCommentDocumentNameCreator;
 
 use App\Utils\QueryCreator\StatusUNFWhereQueryCreator;
 use Illuminate\Support\Facades\DB;

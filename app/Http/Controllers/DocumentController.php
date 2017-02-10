@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Utils\DocumentNameCreator;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -10,8 +9,9 @@ use App\Document;
 use Form;
 use DB;
 
-use App\Utils\PdfDocumentNameCreator;
-use App\Utils\DwgDocumentNameCreator;
+use App\Utils\NameCreator\DocumentNameCreator;
+use App\Utils\NameCreator\PdfDocumentNameCreator;
+use App\Utils\NameCreator\DwgDocumentNameCreator;
 use App\Utils\ArchiveStorage;
 use App\Utils\QueryCreator\DocumentWhereQueryCreator;
 

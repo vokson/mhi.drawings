@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
-use App\Http\Controllers\DocumentController;
 
 use App\Http\Requests;
 use App\Document;
@@ -11,8 +10,10 @@ use App\StatusUNF;
 use Form;
 use DB;
 
-use App\Utils\PdfCommentDocumentNameCreator;
-use App\Utils\JsonDocumentNameCreator;
+use App\Utils\NameCreator\PdfDocumentNameCreator;
+use App\Utils\NameCreator\PdfCommentDocumentNameCreator;
+use App\Utils\NameCreator\DwgDocumentNameCreator;
+use App\Utils\NameCreator\JsonDocumentNameCreator;
 
 class ServiceController extends Controller
 {

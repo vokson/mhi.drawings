@@ -5,7 +5,7 @@ namespace App\Utils\QueryCreator;
 use Illuminate\Http\Request;
 
 
-class WhereQueryCreator
+abstract class WhereQueryCreator
 {
 
     public function make(Request $request)

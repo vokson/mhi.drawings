@@ -1,8 +1,6 @@
 <?php
 
-namespace App\Utils;
-
-use App\Document;
+namespace App\Utils\NameCreator;
 
 class PdfCommentDocumentNameCreator extends DocumentNameCreator
 {
