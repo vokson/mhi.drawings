@@ -22,8 +22,10 @@ class CreateUnfStatusTable extends Migration
             $table->text('title');
             $table->text('path');
             $table->boolean('isPdfExist')->default(0);
+            $table->boolean('repliedByDI')->default(0);
             $table->boolean('approvedByDI')->default(0);
             $table->string('letterFromDI')->nullable();
+            $table->boolean('repliedBySAC')->default(0);
             $table->boolean('approvedBySAC')->default(0);
             $table->string('letterFromSAC')->nullable();
             $table->timestamps();

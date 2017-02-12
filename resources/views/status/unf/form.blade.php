@@ -47,6 +47,14 @@
                 ) !!}
             </td>
             <td class="td_approval">
+                {!! Form::text('repliedByDI',  null,
+                    [
+                       'id' => 'repliedByDI',
+                       'placeholder' => "DI-R",
+                    ]
+                ) !!}
+            </td>
+            <td class="td_approval">
                 {!! Form::text('approvedByDI',  null,
                     [
                        'id' => 'approvedByDI',
@@ -59,6 +67,14 @@
                     [
                        'id' => 'letterFromDI',
                        'placeholder' => "DI-L",
+                    ]
+                ) !!}
+            </td>
+            <td class="td_approval">
+                {!! Form::text('repliedBySAC',  null,
+                    [
+                       'id' => 'repliedBySAC',
+                       'placeholder' => "SAC-R",
                     ]
                 ) !!}
             </td>

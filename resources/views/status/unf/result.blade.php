@@ -12,8 +12,10 @@ Count of documents {{ count($docs) }} </br>
             <th class="td_revision">Rev</th>
             <th class="td_part">Part</th>
             <th class="td_title">Title</th>
+            <th class="td_approval">DI-R</th>
             <th class="td_approval">DI-A</th>
             <th class="td_letter">DI-L</th>
+            <th class="td_approval">SAC-R</th>
             <th class="td_approval">SAC-A</th>
             <th class="td_letter">SAC-L</th>
         </tr>
@@ -40,6 +42,14 @@ Count of documents {{ count($docs) }} </br>
                 <td class="td_title">{{ $doc->title }}</td>
 
                 <td class="td_approval">
+                    @if ($doc->repliedByDI)
+                        YES
+                    @else
+                        NO
+                    @endif
+                </td>
+
+                <td class="td_approval">
                     @if ($doc->approvedByDI)
                         YES
                     @else
@@ -48,6 +58,14 @@ Count of documents {{ count($docs) }} </br>
                 </td>
 
                 <td class="td_letter">{{ $doc->letterFromDI }}</td>
+
+                <td class="td_approval">
+                    @if ($doc->repliedBySAC)
+                        YES
+                    @else
+                        NO
+                    @endif
+                </td>
 
                 <td class="td_approval">
                     @if ($doc->approvedBySAC)

@@ -45,15 +45,19 @@ table.table_input_text td {
 .td_project {
     width: 70px;
 }
+
 .td_name {
     width: 130px;
 }
+
 .td_revision {
     width: 50px;
 }
+
 .td_part {
     width: 50px;
 }
+
 .td_approval {
     width: 50px;
 }
@@ -66,24 +70,20 @@ input#project {
     width: 80%;
 }
 
-
-
 input#name {
     width: 80%;
 }
-
-
 
 input#revision {
     width: 60%;
 }
 
-
-
-
-
 input#title {
     width: 95%;
+}
+
+input#repliedByDI, input#repliedBySAC {
+    width: 80%;
 }
 
 input#approvedByDI, input#approvedBySAC {

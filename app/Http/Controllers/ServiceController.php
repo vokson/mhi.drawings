@@ -78,27 +78,34 @@ class ServiceController extends Controller
 
             $jsonPath = $jsonNameCreator->name($status);
 
+//            $this->addRepliedToJson($jsonPath);
+
             if (file_exists($jsonPath)) {
                 if ($jsonArray = json_decode(file_get_contents($jsonPath), true)) {
 
                     $info = $this->getJsonInfoForUNF($jsonArray);
 
+
                     if (is_null($info)) {
                         echo $jsonPath . " - JSON format is WRONG<br/>";
 
                     } else {
-                        $status->approvedByDI = $info[0];
-                        $status->letterFromDI = $info[1];
-                        $status->approvedBySAC = $info[2];
-                        $status->letterFromSAC = $info[3];
+                        $status->repliedByDI = $info[0];
+                        $status->approvedByDI = $info[1];
+                        $status->letterFromDI = $info[2];
+                        $status->repliedBySAC = $info[3];
+                        $status->approvedBySAC = $info[4];
+                        $status->letterFromSAC = $info[5];
                     }
 
                 } else {
                     echo $jsonPath . " - JSON can't be decoded<br/>";
                 }
             } else {
+                $status->repliedByDI = false;
                 $status->approvedByDI = false;
                 $status->letterFromDI = null;
+                $status->repliedBySAC = false;
                 $status->approvedBySAC = false;
                 $status->letterFromSAC = null;
             }
@@ -109,9 +116,33 @@ class ServiceController extends Controller
         echo count($statuses) . " statuses have been updated.";
     }
 
+//    private function addRepliedToJson($path)
+//    {
+//        if (file_exists($path)) {
+//            $jsonArray = json_decode(file_get_contents($path), true);
+//            $jsonArray["DI"]["replied"] = "yes";
+//            $jsonArray["SAC"]["replied"] = "no";
+//            file_put_contents($path, json_encode($jsonArray));
+//        }
+//    }
+
     private function getJsonInfoForUNF($jsonArray)
     {
         $isOK = true;
+
+        $repliedByDI = false;
+        if (isset($jsonArray['DI']['replied'])) {
+            if ($jsonArray['DI']['replied'] == "yes" or $jsonArray['DI']['replied'] == "YES") {
+                $repliedByDI = true;
+            }
+        } else $isOK = false;
+
+        $repliedBySAC = false;
+        if (isset($jsonArray['SAC']['replied'])) {
+            if ($jsonArray['SAC']['replied'] == "yes" or $jsonArray['SAC']['replied'] == "YES") {
+                $repliedBySAC = true;
+            }
+        } else $isOK = false;
 
         $approvedByDI = false;
         if (isset($jsonArray['DI']['approved'])) {
@@ -138,7 +169,7 @@ class ServiceController extends Controller
         } else $isOK = false;
 
         if ($isOK === true) {
-            return [$approvedByDI, $letterFromDI, $approvedBySAC, $letterFromSAC];
+            return [$repliedByDI, $approvedByDI, $letterFromDI, $repliedBySAC, $approvedBySAC, $letterFromSAC];
         } else {
             return NULL;
         }

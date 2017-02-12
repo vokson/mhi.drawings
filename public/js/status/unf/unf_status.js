@@ -56,6 +56,20 @@ function search() {
             only_last_rev = 1;
         }
 
+        var repliedByDI = null;
+        if ($("#repliedByDI").val() == "YES") {
+            repliedByDI = 1;
+        } else if ($("#repliedByDI").val() == "NO") {
+            repliedByDI = 0;
+        }
+
+        var repliedBySAC = null;
+        if ($("#repliedBySAC").val() == "YES") {
+            repliedBySAC = 1;
+        } else if ($("#repliedBySAC").val() == "NO") {
+            repliedByDI = 0;
+        }
+
         var approvedByDI = null;
         if ($("#approvedByDI").val() == "YES") {
             approvedByDI = 1;
@@ -78,6 +92,8 @@ function search() {
                 name: $("#name").val(),
                 revision: $("#revision").val(),
                 title: $("#title").val(),
+                repliedByDI: repliedByDI,
+                repliedBySAC: repliedBySAC,
                 approvedByDI: approvedByDI,
                 approvedBySAC: approvedBySAC,
                 letterFromDI: $("#letterFromDI").val(),

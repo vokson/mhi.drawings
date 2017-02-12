@@ -18,8 +18,10 @@ class StatusUNF extends Model
         'title',
         'path',
         'isPdfExist',
+        'repliedByDI',
         'approvedByDI',
         'letterFromDI',
+        'repliedBySAC',
         'approvedBySAC',
         'letterFromSAC'
     ];

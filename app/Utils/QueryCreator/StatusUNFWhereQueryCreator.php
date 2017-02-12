@@ -10,6 +10,8 @@ class StatusUNFWhereQueryCreator extends WhereQueryCreator
         ['revision', '='],
         ['part', '='],
         ['title', 'like'],
+        ['repliedByDI', '='],
+        ['repliedBySAC', '='],
         ['approvedByDI', '='],
         ['approvedBySAC', '='],
         ['letterFromDI', 'like'],
