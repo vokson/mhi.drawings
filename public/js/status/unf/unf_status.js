@@ -11,24 +11,27 @@ function var_dump(obj) {
     alert(out);
 }
 
+$(document).ready(function () {
 
-function clear() {
-    $("#search_form").find('input[type="text"], input[type="date"]').val('');
-    $("#name").focus();
-}
+    $("#search_form").submit(function (s) {
+        s.preventDefault();
+        search();
+    });
+
+    is_search_request_in_progress = false;
+
+});
 
 //Проверка на пустой запрос
 function is_request_empty() {
     if (
-        $("#project").val() === "" &&
         $("#name").val() === "" &&
         $("#revision").val() === "" &&
-        $("#part").val() === "" &&
-        $("#status").val() === "" &&
         $("#title").val() === "" &&
-        $("#date_beg").val() === "" &&
-        $("#date_end").val() === "" &&
-        $("#transmittal").val() === ""
+        $("#approvedByDI").val() === "" &&
+        $("#approvedBySAC").val() === "" &&
+        $("#letterFromDI").val() === "" &&
+        $("#letterFromSAC").val() === ""
     )
         return true;
     else
@@ -53,27 +56,55 @@ function search() {
             only_last_rev = 1;
         }
 
+        var repliedByDI = null;
+        if ($("#repliedByDI").val() == "YES") {
+            repliedByDI = 1;
+        } else if ($("#repliedByDI").val() == "NO") {
+            repliedByDI = 0;
+        }
+
+        var repliedBySAC = null;
+        if ($("#repliedBySAC").val() == "YES") {
+            repliedBySAC = 1;
+        } else if ($("#repliedBySAC").val() == "NO") {
+            repliedByDI = 0;
+        }
+
+        var approvedByDI = null;
+        if ($("#approvedByDI").val() == "YES") {
+            approvedByDI = 1;
+        } else if ($("#approvedByDI").val() == "NO") {
+            approvedByDI = 0;
+        }
+
+        var approvedBySAC = null;
+        if ($("#approvedBySAC").val() == "YES") {
+            approvedBySAC = 1;
+        } else if ($("#approvedBySAC").val() == "NO") {
+            approvedByDI = 0;
+        }
+
         $.ajax({
             type: "POST",
-            url: "documents",
+            url: "unf/search",
             async: true,
             data: {
-                project: $("#project").val(),
                 name: $("#name").val(),
                 revision: $("#revision").val(),
-                part: $("#part").val(),
-                status: $("#status").val(),
                 title: $("#title").val(),
-                date_beg: $("#date_beg").val(),
-                date_end: $("#date_end").val(),
-                transmittal: $("#transmittal").val(),
+                repliedByDI: repliedByDI,
+                repliedBySAC: repliedBySAC,
+                approvedByDI: approvedByDI,
+                approvedBySAC: approvedBySAC,
+                letterFromDI: $("#letterFromDI").val(),
+                letterFromSAC: $("#letterFromSAC").val(),
                 only_last_rev: only_last_rev
             },
             success: function (data) {
                 if (data.length > 0)
                     $("#search_results").html(data);
                 //Подключаем plugin для сортировки
-                $("#docTable").tablesorter({theme: 'blue', sortList: [[2, 0], [3, 0]], widgets: ['zebra']});
+                $("#docTable").tablesorter({theme: 'blue', sortList: [[1, 0], [2, 0]], widgets: ['zebra']});
                 //Разрешение на следующий запрос
                 is_search_request_in_progress = false;
             }
@@ -91,40 +122,4 @@ function createListOfDocumentId() {
     });
 
     return list;
-}
-
-function zip_drawings(type) {
-
-    var list = createListOfDocumentId();
-
-    if (list.length == 0)
-        $("#search_results").html('Document list is empty. Please, find something first.<br/>');
-    else if (is_zip_request_in_progress === true)
-        $("#search_results").html('Please, wait result of your previous request!<br/>Loading..<br/>');
-    else {
-        // Запрет на повторный запрос
-        is_zip_request_in_progress = true;
-
-        $.ajax({
-            type: "POST",
-            url: "documents/" + type,
-            async: true,
-            data: {
-                list: JSON.stringify(list),
-            },
-            success: function (filename) {
-                is_zip_request_in_progress = false;
-
-                //$("#search_results").html(filename);
-
-                if (filename != "")
-                {
-                    window.location.href = 'zip/' + filename;
-                } else {
-                    alert("Zip archive creation ERROR or count of files = 0 !!!")
-                }
-
-            }
-        });
-    }
 }

@@ -11,6 +11,16 @@ $(document).ready(function () {
         search();
     });
 
+    $("#button_service").click(function (s) {
+        s.preventDefault();
+        window.location.href = "/service";
+    });
+
+    $("#button_unf_status").click(function (s) {
+        s.preventDefault();
+        window.location.href = "/status/unf";
+    });
+
     $("#button_download_all_pdf").click(function (s) {
         s.preventDefault();
         zip_drawings('pdf');

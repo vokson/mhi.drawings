@@ -6,6 +6,8 @@ table {
 
 /*Размеры кнопок*/
 .td_button_get {width:3%;}
+.td_button_service {width:7%;}
+.td_button_status {width:5%;}
 .td_button_download_all_pdf,
 .td_button_download_all_dwg {width:20%;}
 

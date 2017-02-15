@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Utils\DocumentNameCreator;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -10,10 +9,11 @@ use App\Document;
 use Form;
 use DB;
 
-use App\Utils\PdfDocumentNameCreator;
-use App\Utils\DwgDocumentNameCreator;
-use App\Utils\WhereQueryCreator;
+use App\Utils\NameCreator\DocumentNameCreator;
+use App\Utils\NameCreator\PdfDocumentNameCreator;
+use App\Utils\NameCreator\DwgDocumentNameCreator;
 use App\Utils\ArchiveStorage;
+use App\Utils\QueryCreator\DocumentWhereQueryCreator;
 
 class DocumentController extends Controller
 {
@@ -26,9 +26,7 @@ class DocumentController extends Controller
     public function search(Request $request)
 
     {
-//        dd($request);
-
-        $queryCreator = new WhereQueryCreator();
+        $queryCreator = new DocumentWhereQueryCreator();
 
         if ($request->input('only_last_rev') == 1) {
             $docs = DB::table('documents')
@@ -53,7 +51,7 @@ class DocumentController extends Controller
     public function getSinglePdf($id)
     {
         $docNameCreator = new PdfDocumentNameCreator();
-        $path = $docNameCreator->name($this->getDocumentById($id));
+        $path = $docNameCreator->name(self::getDocumentById($id));
 
         return response()
             ->make(file_get_contents($path), 200)
@@ -64,12 +62,12 @@ class DocumentController extends Controller
     public function getSingleDwg($id)
     {
         $docNameCreator = new DwgDocumentNameCreator();
-        $path = $docNameCreator->name($this->getDocumentById($id));
+        $path = $docNameCreator->name(self::getDocumentById($id));
 
         return response()->download($path, basename($path), ['Content-Type: application/octet-stream']);
     }
 
-    private function getDocumentById($id)
+    public static function getDocumentById($id)
     {
         return Document::where('id', $id)->firstOrFail();
     }
@@ -97,7 +95,7 @@ class DocumentController extends Controller
         $files = [];
 
         foreach ($idList as $id) {
-            $doc = $this->getDocumentById($id);
+            $doc = self::getDocumentById($id);
 
             $files[] = $nameCreator->name($doc);
         }
