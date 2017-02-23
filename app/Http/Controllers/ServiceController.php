@@ -59,6 +59,7 @@ class ServiceController extends Controller
             $object->revision = $doc->revision;
             $object->part = $doc->part;
             $object->path = $doc->path;
+            $object->transmittal = $doc->transmittal;
             $object->save();
 
         }

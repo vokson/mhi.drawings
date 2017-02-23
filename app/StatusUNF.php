@@ -16,6 +16,7 @@ class StatusUNF extends Model
         'revision',
         'part',
         'title',
+        'transmittal',
         'path',
         'isPdfExist',
         'repliedByDI',

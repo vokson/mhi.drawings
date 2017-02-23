@@ -20,6 +20,7 @@ class CreateUnfStatusTable extends Migration
             $table->string('revision');
             $table->string('part');
             $table->text('title');
+            $table->string('transmittal');
             $table->text('path');
             $table->boolean('isPdfExist')->default(0);
             $table->boolean('repliedByDI')->default(0);
