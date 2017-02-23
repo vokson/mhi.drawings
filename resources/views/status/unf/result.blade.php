@@ -7,7 +7,7 @@ Count of documents {{ count($docs) }} </br>
     <table id="docTable" class="tablesorter">
         <thead>
         <tr>
-            <th class="td_project">Project</th>
+            <th class="td_transmittal">Transmittal</th>
             <th class="td_name">Drawing</th>
             <th class="td_revision">Rev</th>
             <th class="td_part">Part</th>
@@ -24,7 +24,7 @@ Count of documents {{ count($docs) }} </br>
         @foreach ($docs as $doc)
             <tr id="{{ $doc->id }}" class="document">
 
-                <td class="td_project">{{ $doc->project }}</td>
+                <td class="td_transmittal">{{ $doc->transmittal }}</td>
                 <td class="td_name">
                     @if ($doc->isPdfExist)
                         <a href="{{ action('StatusController@getSinglePdf', ['id' => $doc->id])  }}">

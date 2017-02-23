@@ -13,7 +13,14 @@
 
     <table class="table_input_text">
         <tr>
-            <td class="td_project"></td>
+            <td class="td_transmittal">
+                {!! Form::text('transmittal',  null,
+                    [
+                        'id' => 'transmittal',
+                        'placeholder' => "Transmittal",
+                    ]
+                ) !!}
+            </td>
             <td class="td_name">
                 {!! Form::text('name', null,
                     [

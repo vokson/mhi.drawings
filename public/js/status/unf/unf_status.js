@@ -28,6 +28,7 @@ function is_request_empty() {
         $("#name").val() === "" &&
         $("#revision").val() === "" &&
         $("#title").val() === "" &&
+        $("#transmittal").val() === "" &&
         $("#approvedByDI").val() === "" &&
         $("#approvedBySAC").val() === "" &&
         $("#letterFromDI").val() === "" &&
@@ -92,6 +93,7 @@ function search() {
                 name: $("#name").val(),
                 revision: $("#revision").val(),
                 title: $("#title").val(),
+                transmittal: $("#transmittal").val(),
                 repliedByDI: repliedByDI,
                 repliedBySAC: repliedBySAC,
                 approvedByDI: approvedByDI,

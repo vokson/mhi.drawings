@@ -66,6 +66,10 @@ table.table_input_text td {
     width: 100px;
 }
 
+.td_transmittal {
+    width: 170px;
+}
+
 input#project {
     width: 80%;
 }
@@ -80,6 +84,10 @@ input#revision {
 
 input#title {
     width: 95%;
+}
+
+input#transmittal {
+    width: 90%;
 }
 
 input#repliedByDI, input#repliedBySAC {
