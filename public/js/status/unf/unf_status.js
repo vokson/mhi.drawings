@@ -68,7 +68,7 @@ function search() {
         if ($("#repliedBySAC").val() == "YES") {
             repliedBySAC = 1;
         } else if ($("#repliedBySAC").val() == "NO") {
-            repliedByDI = 0;
+            repliedBySAC = 0;
         }
 
         var approvedByDI = null;
@@ -82,7 +82,7 @@ function search() {
         if ($("#approvedBySAC").val() == "YES") {
             approvedBySAC = 1;
         } else if ($("#approvedBySAC").val() == "NO") {
-            approvedByDI = 0;
+            approvedBySAC = 0;
         }
 
         $.ajax({
